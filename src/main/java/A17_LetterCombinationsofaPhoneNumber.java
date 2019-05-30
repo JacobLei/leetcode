@@ -3,26 +3,32 @@ import java.util.List;
 
 public class A17_LetterCombinationsofaPhoneNumber {
     public List<String> letterCombinations(String digits) {
+        // 数字与字母的对应关系
+        String[] map = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
         List<String> res = new ArrayList<>();
         if(digits.isEmpty())
             return res;
-        String[] map = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-
+        // 图中树的根节点
         res.add("");
-        for (int i = 0; i < digits.length(); i++) {
-            res = combine(map[digits.charAt(i) - '0'], res);
+
+        // 遍历输入的数字
+        for(char c : digits.toCharArray()){
+            res = combine(map[c-'0'], res);
         }
 
         return res;
     }
 
-    private List<String> combine(String digit, List<String> list) {
+    // 根据数字组合字母
+    private List<String> combine(String digits, List<String> list){
         List<String> res = new ArrayList<>();
-        for (int i = 0; i < digit.length(); i++) {
-            for (String s : list){
-                res.add(s+digit.charAt(i));
+
+        for(char c : digits.toCharArray()){
+            for(String s : list){
+                res.add(s+c);
             }
         }
+
         return res;
     }
 
